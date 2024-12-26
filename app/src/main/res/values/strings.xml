@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ProyectoPooP2</string>
+    <string name="listaPerfiles">Selecciona un Perfil</string>
+    <string name="listaMedicinas">Lista de Medicinas</string>
+    <string name="listaDoctores">Lista de Doctores</string>
+    <string name="listaActividadFisica">Actividades Fisicas</string>
+    <string name="crearPerfil">Crear Perfil</string>
+    <string name="ingresarNombre">Nombre de Usuario</string>
+    <string name="ingresarRelacion">Relacion del Usuario</string>
+    <string name="ingresarEmail">Email (No obligatorio)</string>
+    <string name="volver">Volver</string>
+    <string name="crear">Crear</string>
+</resources>
