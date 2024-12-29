@@ -1,7 +1,9 @@
 package com.poo.proyectopoop2.Modelo;
 
 
-public class ActividadFisicaModelo {
+import java.io.Serializable;
+
+public class ActividadFisicaModelo implements Serializable {
     private FechaModelo fecha;
     private String actividad;
     private String duracion;

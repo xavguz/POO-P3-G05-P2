@@ -1,13 +1,22 @@
 <resources>
     <string name="app_name">ProyectoPooP2</string>
-    <string name="listaPerfiles">Selecciona un Perfil</string>
-    <string name="listaMedicinas">Lista de Medicinas</string>
-    <string name="listaDoctores">Lista de Doctores</string>
-    <string name="listaActividadFisica">Actividades Fisicas</string>
-    <string name="crearPerfil">Crear Perfil</string>
-    <string name="ingresarNombre">Nombre de Usuario</string>
-    <string name="ingresarRelacion">Relacion del Usuario</string>
-    <string name="ingresarEmail">Email (No obligatorio)</string>
+    <string name="lista_perfiles">Selecciona un Perfil</string>
+    <string name="lista_medicinas">Lista de Medicinas</string>
+    <string name="lista_doctores">Lista de Doctores</string>
+    <string name="lista_actividadFisica">Actividades Fisicas</string>
+    <string name="crear_perfil">Crear Perfil</string>
+    <string name="ingresar_nombre">Nombre de Usuario</string>
+    <string name="ingresar_relacion">Relacion del Usuario</string>
+    <string name="ingresar_email">Email (No obligatorio)</string>
     <string name="volver">Volver</string>
     <string name="crear">Crear</string>
+    <string name="nombre_faltante">No se ingreso nombre de usuario</string>
+    <string name="relacion_faltante">No se ingreso relacion del usuario</string>
+    <string name="email_invalido">Ingresa un email valido</string>
+    <string name="nombre_relacion_faltante">No se ingreso nombre ni relacion</string>
+    <string name="perfil_existente">Este perfil ya existe!</string>
+    <string name="perfil_creado">Perfil creado</string>
+
+
+
 </resources>

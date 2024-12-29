@@ -1,6 +1,8 @@
 package com.poo.proyectopoop2.Modelo;
 
-public class FechaModelo {
+import java.io.Serializable;
+
+public class FechaModelo implements Serializable {
     private String dia;
     private String mes;
     private String año;

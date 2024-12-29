@@ -3,7 +3,9 @@ package com.poo.proyectopoop2.Modelo;
 
 import androidx.annotation.NonNull;
 
-public class TomaMedicinaModelo {
+import java.io.Serializable;
+
+public class TomaMedicinaModelo implements Serializable {
     private MedicinaModelo medicina;
     private FechaModelo fecha;
 

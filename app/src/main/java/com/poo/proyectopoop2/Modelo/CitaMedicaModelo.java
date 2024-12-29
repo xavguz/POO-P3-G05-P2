@@ -1,6 +1,8 @@
 package com.poo.proyectopoop2.Modelo;
 
-public class CitaMedicaModelo {
+import java.io.Serializable;
+
+public class CitaMedicaModelo implements Serializable {
     private String titulo;
     private FechaModelo fecha;
     private MedicoModelo doctor;

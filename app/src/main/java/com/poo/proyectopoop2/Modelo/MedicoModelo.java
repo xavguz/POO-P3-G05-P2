@@ -2,7 +2,9 @@ package com.poo.proyectopoop2.Modelo;
 
 import androidx.annotation.NonNull;
 
-public class MedicoModelo {
+import java.io.Serializable;
+
+public class MedicoModelo implements Serializable {
     private String nombre;
     private String especialidades;
     private String telefono;

@@ -2,11 +2,12 @@ package com.poo.proyectopoop2.Modelo;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class PerfilModelo {
+public class PerfilModelo implements Serializable {
 
     private String nombre;
     private String relacion;
@@ -87,18 +88,18 @@ public class PerfilModelo {
     @NonNull
     @Override
     public String toString(){
-        return nombre + " (" + relacion + ").";
+        return nombre + " (" + relacion + ")";
     }
 
+    @Override
     public boolean equals(Object p) {
-        if (p != null && p instanceof PerfilModelo) {
+        if (p instanceof PerfilModelo) {
             PerfilModelo perfil = (PerfilModelo) p;
-            if (Objects.equals(nombre.toLowerCase(), perfil.nombre.toLowerCase()) &&
-                    Objects.equals(relacion, perfil.relacion)){
-                        return true;
-                    }
-            }
+            return Objects.equals(nombre.toLowerCase(), perfil.nombre.toLowerCase()) &&
+                    Objects.equals(relacion.toLowerCase(), perfil.relacion.toLowerCase());
+        }
         return false;
     }
+
 
 }

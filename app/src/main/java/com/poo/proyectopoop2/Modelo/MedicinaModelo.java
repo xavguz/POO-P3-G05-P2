@@ -1,6 +1,8 @@
 package com.poo.proyectopoop2.Modelo;
 
-public class MedicinaModelo {
+import java.io.Serializable;
+
+public class MedicinaModelo implements Serializable {
 
     private String nombreMedicamento;
     private float unidadesDisponibles;

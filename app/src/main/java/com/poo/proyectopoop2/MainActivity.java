@@ -1,27 +1,24 @@
 package com.poo.proyectopoop2;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.poo.proyectopoop2.Controlador.PerfilControlador;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-    }
 
-    public void botonCrearPerfil(View view) {
-        setContentView(R.layout.activity_crearperfil);
-    }
-
-    public void botonVolver(View view) {
-        setContentView(R.layout.activity_main);
+        Button btnCrearPerfilLayout = findViewById(R.id.crearPerfil);
+        btnCrearPerfilLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CrearPerfilActivity.class);
+            startActivity(intent);
+        });
     }
 }

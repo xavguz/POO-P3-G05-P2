@@ -12,7 +12,7 @@
         android:id="@+id/selecionarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/listaPerfiles"
+        android:text="@string/lista_perfiles"
         android:textColor="@color/darkBlue"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -22,13 +22,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.271" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/crearPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/darkBlue"
-        android:onClick="botonCrearPerfil"
-        android:text="@string/crearPerfil"
+        android:text="@string/crear_perfil"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
