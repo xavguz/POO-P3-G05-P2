@@ -1,9 +1,10 @@
 package com.poo.proyectopoop2.Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaCitaMedicaModelo {
+public class ListaCitaMedicaModelo implements Serializable {
     private List<CitaMedicaModelo> listaCitas;
 
     public ListaCitaMedicaModelo() {

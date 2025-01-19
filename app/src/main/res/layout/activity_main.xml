@@ -8,24 +8,27 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/selecionarPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lista_perfiles"
-        android:textColor="@color/darkBlue"
-        android:textSize="25sp"
+    <Button
+        android:id="@+id/seleccionarPerfil"
+        android:layout_width="219dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Seleccionar Perfil"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
+        app:cornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.259" />
 
     <Button
         android:id="@+id/crearPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="408dp"
         android:backgroundTint="@color/darkBlue"
         android:text="@string/crear_perfil"
         android:textColor="@color/white"
@@ -36,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selecionarPerfil"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintTop_toBottomOf="@+id/seleccionarPerfil"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

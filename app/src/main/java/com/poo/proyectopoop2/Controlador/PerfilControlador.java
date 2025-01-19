@@ -8,6 +8,7 @@ import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
 import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,6 +16,10 @@ public class PerfilControlador {
 
     private ListaPerfilesModelo listaPerfilesModelo;
     private ExecutorService executorService;
+
+    public ArrayList<PerfilModelo> obtenerPerfiles() {
+        return listaPerfilesModelo.getPerfiles();
+    }
 
     public PerfilControlador(){
         this.listaPerfilesModelo = new ListaPerfilesModelo();

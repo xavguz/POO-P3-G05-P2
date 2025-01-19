@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class PerfilModelo implements Serializable {
 
+    private int id; //identificador unico
     private String nombre;
     private String relacion;
     private String email;
@@ -17,8 +18,10 @@ public class PerfilModelo implements Serializable {
     private ArrayList<MedicoModelo> medicos;
     private ArrayList<CitaMedicaModelo> citaMedicas;
     private ArrayList<ActividadFisicaModelo> actividadesFisicas;
+    public static int ultimoId = 0;
     
     public PerfilModelo(String nombre, String relacion, String email){
+        id= ultimoId +1;
         this.nombre = nombre;
         this.relacion = relacion;
         this.email = email;
@@ -27,6 +30,7 @@ public class PerfilModelo implements Serializable {
         this.medicos = new ArrayList<>();
         this.citaMedicas = new ArrayList<>();
         this.actividadesFisicas = new ArrayList<>();
+        ultimoId= id;
     }
     public PerfilModelo(){
         this.medicinas = new ArrayList<>();
