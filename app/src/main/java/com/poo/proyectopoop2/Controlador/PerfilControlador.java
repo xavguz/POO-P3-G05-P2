@@ -1,6 +1,7 @@
 package com.poo.proyectopoop2.Controlador;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -8,11 +9,12 @@ import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
 import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PerfilControlador {
+public class PerfilControlador implements Serializable {
 
     private ListaPerfilesModelo listaPerfilesModelo;
     private ExecutorService executorService;
@@ -21,8 +23,8 @@ public class PerfilControlador {
         return listaPerfilesModelo.getPerfiles();
     }
 
-    public PerfilControlador(){
-        this.listaPerfilesModelo = new ListaPerfilesModelo();
+    public PerfilControlador(Context context){
+        this.listaPerfilesModelo = new ListaPerfilesModelo(context);
         this.executorService = Executors.newSingleThreadExecutor();
 
         executorService.submit(() -> {
@@ -73,4 +75,6 @@ public class PerfilControlador {
             throw new RuntimeException(e);
         }
     }
+
 }
+

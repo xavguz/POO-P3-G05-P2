@@ -1,6 +1,5 @@
 package com.poo.proyectopoop2;
 
-import static com.poo.proyectopoop2.Modelo.ListaPerfilesModelo.cargarPerfilesDesdeArchivo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,21 +15,28 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.poo.proyectopoop2.Controlador.PerfilControlador;
+import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
 import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SeleccionarPerfilActivity_ extends AppCompatActivity {
+    private ListaPerfilesModelo listaPerfilesModelo;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_perfil3);
 
+        // Asegúrate de inicializar correctamente el modelo
+        listaPerfilesModelo = new ListaPerfilesModelo(this);  // Inicialización
+
         ListView listaPerfiles = findViewById(R.id.lista_perfil);
 
-        try{
+        try {
+            // Cargar perfiles desde el archivo
             ArrayList<PerfilModelo> perfiles = cargarPerfilesDesdeArchivo();
 
             if (perfiles.isEmpty()) {
@@ -38,7 +44,9 @@ public class SeleccionarPerfilActivity_ extends AppCompatActivity {
                 Toast.makeText(this, "No hay perfiles disponibles.", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_CANCELED);
                 finish();
-                return;}
+                return;
+            }
+
             // Configurar adaptador para mostrar los perfiles
             ArrayAdapter<PerfilModelo> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, perfiles);
             listaPerfiles.setAdapter(adapter);
@@ -51,12 +59,18 @@ public class SeleccionarPerfilActivity_ extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             });
-    }catch (Exception e){
-                System.out.println(("Error al cargar perfiles: " + e.getMessage()));
-                setResult(RESULT_CANCELED);
-                finish();
+
+        } catch (Exception e) {
+            // Manejo de excepciones al cargar perfiles
+            System.out.println("Error al cargar perfiles: " + e.getMessage());
+            setResult(RESULT_CANCELED);
+            finish();
         }
     }
+
+    private ArrayList<PerfilModelo> cargarPerfilesDesdeArchivo() throws IOException, ClassNotFoundException {
+        // Deserializar los perfiles
+        listaPerfilesModelo.deserializarArrayList();  // Aquí se asegura de que no sea null
+        return listaPerfilesModelo.getPerfiles();
+    }
 }
-
-

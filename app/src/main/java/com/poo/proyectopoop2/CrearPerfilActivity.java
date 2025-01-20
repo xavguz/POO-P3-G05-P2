@@ -33,7 +33,7 @@ public class CrearPerfilActivity extends AppCompatActivity {
         nombreUsuario = findViewById(R.id.ingresarUsuario);
         relacionUsuario = findViewById(R.id.ingresarRelacion);
         emailUsuario = findViewById(R.id.ingresarEmail);
-        perfilControlador = new PerfilControlador();
+        perfilControlador = new PerfilControlador(this);
 
 
         ImageButton btnVolver = findViewById(R.id.volver);
@@ -68,9 +68,10 @@ public class CrearPerfilActivity extends AppCompatActivity {
                         PerfilModelo nuevoPerfil = new PerfilModelo(nombre, relacion, email);
 
                         // Ruta del directorio donde se almacenará el archivo
+                        ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
 
                         // Agregar perfil al archivo utilizando el método mejorado
-                        ListaPerfilesModelo.guardarPerfilEnArchivo(nuevoPerfil);
+                        listaPerfilesModelo.guardarPerfilEnArchivo(nuevoPerfil);
 
                         Toast.makeText(this, this.getString(R.string.perfil_creado),
                                 Toast.LENGTH_SHORT).show();
