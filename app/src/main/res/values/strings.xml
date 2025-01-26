@@ -23,5 +23,6 @@
     <string name="direccion_faltante">No se ingreso dirección del médico</string>
     <string name="medico_agregado">Médico agregado</string>
     <string name="medico_existente">Este médico se encuentra registrado!</string>
+    <string name="anadir_medicina">Añadir Medicina</string>
 
 </resources>

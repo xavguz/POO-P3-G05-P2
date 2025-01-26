@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.poo.proyectopoop2.Controlador.AnadirMedico;
-import com.poo.proyectopoop2.Controlador.MedicoControlador;
-import com.poo.proyectopoop2.Controlador.MenuActivity;
 import com.poo.proyectopoop2.Modelo.ListaMedicoModelo;
 import com.poo.proyectopoop2.Modelo.MedicoAdapter;
 import com.poo.proyectopoop2.Modelo.MedicoModelo;
@@ -46,6 +43,12 @@ public class Medico_Activity extends AppCompatActivity {
         btnAgregarMedico.setOnClickListener(v -> {
             Intent intent = new Intent(Medico_Activity.this, AnadirMedico.class);
             startActivityForResult(intent, 1);
+        });
+
+        ImageButton btnVolver = findViewById(R.id.volver);
+        btnVolver.setOnClickListener(v -> {
+            Intent intent = new Intent(Medico_Activity.this, MenuActivity.class);
+            startActivity(intent);
         });
     }
 

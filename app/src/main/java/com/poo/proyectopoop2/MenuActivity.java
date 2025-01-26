@@ -1,18 +1,15 @@
-package com.poo.proyectopoop2.Controlador;
+package com.poo.proyectopoop2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.poo.proyectopoop2.Medico_Activity;
-import com.poo.proyectopoop2.R;
+import com.poo.proyectopoop2.Controlador.AnadirCitaMedica;
+import com.poo.proyectopoop2.Controlador.AnadirMedico;
+import com.poo.proyectopoop2.Controlador.CitaMedicaControlador;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -23,9 +20,9 @@ public class MenuActivity extends AppCompatActivity {
 
         // Obtener el nombre del perfil seleccionado
         String perfilSeleccionado = getIntent().getStringExtra("perfilSeleccionado");
-
         // Mostrar el nombre del perfil en la parte superior
         TextView nombrePerfil = findViewById(R.id.textNombreUsuario);
+        TextView relacionPeril = findViewById(R.id.textRelacionUsuario);
         nombrePerfil.setText(perfilSeleccionado);
 
         // Configurar botones
@@ -34,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
         Button btnCitas = findViewById(R.id.btnAdministrarCitas);
         Button btnActividadFisica = findViewById(R.id.btnAdministrarActividadFisica);
 
-        btnMedicamentos.setOnClickListener(v -> {
+        btnMedicos.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, AnadirMedico.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
@@ -54,6 +51,12 @@ public class MenuActivity extends AppCompatActivity {
 
         btnActividadFisica.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, AnadirCitaMedica.class);
+            intent.putExtra("perfilSeleccionado", perfilSeleccionado);
+            startActivity(intent);
+        });
+
+        btnMedicamentos.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuActivity.this, AnadirMedicinaActivity.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
         });

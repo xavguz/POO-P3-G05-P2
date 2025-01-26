@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.poo.proyectopoop2.Controlador.MenuActivity;
 import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
 import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
