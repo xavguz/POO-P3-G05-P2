@@ -61,7 +61,13 @@ public class ListaMedicoModelo implements Serializable {
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
-            listaMedicos = (ArrayList<MedicoModelo>) in.readObject();
+            Object obj = in.readObject();
+
+            if (obj instanceof ArrayList<?>) {
+                listaMedicinas = (ArrayList<MedicinaModelo>) obj;
+            } else {
+                throw new ClassCastException("El archivo deserializado no es el correcto.");
+            }
         }
     }
 
@@ -69,7 +75,7 @@ public class ListaMedicoModelo implements Serializable {
         if (!listaMedicos.contains(medicoNuevo)) {
             listaMedicos.add(medicoNuevo);
             serializarArrayListMedico();
+        }
     }
-}
 }
 

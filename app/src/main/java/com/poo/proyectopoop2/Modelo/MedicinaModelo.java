@@ -7,18 +7,15 @@ public class MedicinaModelo implements Serializable {
     private String nombreMedicamento;
     private float unidadesDisponibles;
     private String presentacion;
-    private String frecuencia;
-    private String frecuenciaDia;
+    private String hora;
     private float dosis;
 
     public MedicinaModelo(String nombreMedicamento, float unidadesDisponibles,
-                    String presentacion, String frecuencia,
-                    String frecuenciaDia, float dosis){
+                    String presentacion, String hora, float dosis){
         this.nombreMedicamento = nombreMedicamento;
         this.unidadesDisponibles = unidadesDisponibles;
         this.presentacion = presentacion;
-        this.frecuencia = frecuencia;
-        this.frecuenciaDia = frecuenciaDia;
+        this.hora = hora;
         this.dosis = dosis;
     }
 
@@ -28,8 +25,7 @@ public class MedicinaModelo implements Serializable {
         System.out.println("Nombre del medicamento: " + nombreMedicamento);
         System.out.println("Unidades disponibles: " + unidadesDisponibles);
         System.out.println("Presentacion: " + presentacion);
-        System.out.println("Frecuencia: " + frecuencia);
-        System.out.println("Frecuencia dia: " + frecuenciaDia);
+        System.out.println("Hora: " + hora);
         System.out.println("Dosis: " + dosis);
     }
 
@@ -57,20 +53,12 @@ public class MedicinaModelo implements Serializable {
         this.presentacion = presentacion;
     }
 
-    public String getFrecuencia(){
-        return frecuencia;
+    public String getHora(){
+        return hora;
     }
 
-    public void setFrecuencia(String frecuencia){
-        this.frecuencia = frecuencia;
-    }
-
-    public String getFrecuenciaDia(){
-        return frecuenciaDia;
-    }
-
-    public void setFrecuenciaDia(String frecuenciaDia){
-        this.frecuenciaDia = frecuenciaDia;
+    public void setHora(String hora){
+        this.hora = hora;
     }
 
     public float getDosis(){
@@ -83,7 +71,7 @@ public class MedicinaModelo implements Serializable {
 
     @Override
     public String toString(){
-        return nombreMedicamento +" / "+ unidadesDisponibles +" / "+ presentacion +" / "+ frecuencia +" / "+ frecuenciaDia +" / "+ dosis;
+        return nombreMedicamento +" / "+ unidadesDisponibles +" / "+ presentacion +" / "+ hora +" / "+ dosis;
     }
 }
 
