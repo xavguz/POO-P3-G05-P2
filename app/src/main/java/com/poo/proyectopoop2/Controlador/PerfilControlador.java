@@ -67,7 +67,7 @@ public class PerfilControlador implements Serializable {
                 ? new PerfilModelo(nombre, relacion)
                 : new PerfilModelo(nombre, relacion, email);
 
-        listaPerfilesModelo.addPerfiles(perfil);
+        listaPerfilesModelo.anadirPerfiles(perfil);
 
         try {
             listaPerfilesModelo.serializarArrayList();

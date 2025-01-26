@@ -3,6 +3,7 @@ package com.poo.proyectopoop2.Modelo;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class MedicoModelo implements Serializable {
     private String nombre;
@@ -69,4 +70,23 @@ public class MedicoModelo implements Serializable {
                     ", Especialidad: "+ especialidades + //
                     ", Numero de Contacto: "+ telefono;
     }
+
+    @Override
+    public boolean equals(Object medico) {
+        if (medico instanceof MedicoModelo) {
+            MedicoModelo medico1 = (MedicoModelo) medico;
+            return Objects.equals(nombre.toLowerCase(), medico1.nombre.toLowerCase()) &&
+                    Objects.equals(especialidades.toLowerCase(), medico1.especialidades.toLowerCase()) &&
+                    Objects.equals(telefono, medico1.telefono) &&
+                    Objects.equals(email, medico1.email) &&
+                    Objects.equals(direccion, medico1.direccion);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre.toLowerCase(), especialidades.toLowerCase(), telefono.toLowerCase(), email.toLowerCase(), direccion.toLowerCase());
+    }
 }
+

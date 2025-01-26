@@ -20,11 +20,6 @@ public class ListaPerfilesModelo implements Serializable {
     public ListaPerfilesModelo(Context context) {
         this.context = context;
         this.perfiles = new ArrayList<>();
-        try {
-            deserializarArrayList(); // Intenta cargar perfiles automáticamente
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace(); // Manejo de errores al cargar el archivo
-        }
 
     }
 
@@ -32,7 +27,7 @@ public class ListaPerfilesModelo implements Serializable {
         return perfiles;
     }
 
-    public void addPerfiles(PerfilModelo perfil) {
+    public void anadirPerfiles(PerfilModelo perfil) {
         // Verificar si el perfil ya existe antes de agregarlo
         if (!perfiles.contains(perfil)) {
             perfiles.add(perfil);
@@ -45,15 +40,16 @@ public class ListaPerfilesModelo implements Serializable {
         Set<PerfilModelo> uniqueSet = new HashSet<>(perfiles);
         perfiles = new ArrayList<>(uniqueSet);
 
-        File archivo = new File(context.getFilesDir(), "listaPerfiles.ser");
+        File archivo = new File(context.getFilesDir(), "listaPerfiles_.ser");
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo))) {
             out.writeObject(perfiles);
+
         }
     }
 
     @SuppressWarnings("unchecked")
     public void deserializarArrayList() throws IOException, ClassNotFoundException {
-        File archivo = new File(context.getFilesDir(), "listaPerfiles.ser");
+        File archivo = new File(context.getFilesDir(), "listaPerfiles_.ser");
         if (!archivo.exists()) {
             perfiles = new ArrayList<>(); // Si no existe, inicializa una nueva lista
             return;

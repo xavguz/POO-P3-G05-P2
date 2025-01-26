@@ -16,6 +16,12 @@
     <string name="nombre_relacion_faltante">No se ingreso nombre ni relacion</string>
     <string name="perfil_existente">Este perfil ya existe!</string>
     <string name="perfil_creado">Perfil creado</string>
-
+    <string name="No_se_ingreso_ningun_dato">No se ingreso dato alguno</string>
+    <string name="especialidad_faltante">No se ingreso especialidad </string>
+    <string name="nombre_faltante_medico">No se ingreso nombre del médico</string>
+    <string name="telefono_faltante">No se ingreso telefono del médico</string>
+    <string name="direccion_faltante">No se ingreso dirección del médico</string>
+    <string name="medico_agregado">Médico agregado</string>
+    <string name="medico_existente">Este médico se encuentra registrado!</string>
 
 </resources>

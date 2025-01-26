@@ -9,32 +9,32 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etNombre"
+        android:id="@+id/ingresarNombreMedico"
         android:layout_width="387dp"
         android:layout_height="52dp"
         android:hint="Nombre"
-        app:layout_constraintBottom_toTopOf="@+id/etTelefono"
+        app:layout_constraintBottom_toTopOf="@+id/ingresarTelefonoMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etEspecialidad"
+        android:id="@+id/ingresarEspecialidadMedico"
         android:layout_width="387dp"
         android:layout_height="52dp"
         android:hint="Especialidad"
-        app:layout_constraintBottom_toTopOf="@+id/etDireccion"
+        app:layout_constraintBottom_toTopOf="@+id/ingresarDireccionMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.904" />
 
     <EditText
-        android:id="@+id/etTelefono"
+        android:id="@+id/ingresarTelefonoMedico"
         android:layout_width="387dp"
         android:layout_height="52dp"
         android:hint="Teléfono"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintBottom_toTopOf="@+id/ingresarEmailMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,11 +42,11 @@
         app:layout_constraintVertical_bias="0.847" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/ingresarEmailMedico"
         android:layout_width="387dp"
         android:layout_height="52dp"
         android:hint="Email"
-        app:layout_constraintBottom_toTopOf="@+id/etEspecialidad"
+        app:layout_constraintBottom_toTopOf="@+id/ingresarEspecialidadMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,18 +54,18 @@
         app:layout_constraintVertical_bias="0.895" />
 
     <EditText
-        android:id="@+id/etDireccion"
+        android:id="@+id/ingresarDireccionMedico"
         android:layout_width="387dp"
         android:layout_height="52dp"
         android:hint="Dirección"
-        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardarMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.539" />
 
     <Button
-        android:id="@+id/btnGuardar"
+        android:id="@+id/btnGuardarMedico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#03A9F4"

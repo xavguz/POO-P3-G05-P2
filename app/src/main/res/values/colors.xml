@@ -6,4 +6,5 @@
     <color name="blue">#006afb</color>
     <color name="blueGray">#78a1ff</color>
     <color name="gray">#dde0ff</color>
+    <color name="darkBluePressed">#0036b8</color>
 </resources>

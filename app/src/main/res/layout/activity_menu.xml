@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Titulo del Perfil -->
+    <TextView
+        android:id="@+id/textNombreUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre Usuario"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Información adicional del usuario -->
+    <TextView
+        android:id="@+id/textRelacionUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Relación con el Usuario"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Opciones de menú -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <!-- Opción: Administrar Medicamentos -->
+            <Button
+                android:id="@+id/btnAdministrarMedicamentos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Medicamentos"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/selector_button"/>
+
+            <!-- Opción: Administrar Médicos -->
+            <Button
+                android:id="@+id/btnAdministrarMedicos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Médicos"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/selector_button"/>
+
+            <!-- Opción: Administrar Citas Médicas -->
+            <Button
+                android:id="@+id/btnAdministrarCitas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Citas Médicas"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/selector_button"/>
+
+            <!-- Opción: Administrar Actividad Física -->
+            <Button
+                android:id="@+id/btnAdministrarActividadFisica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Actividad Física"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/selector_button"/>
+
+            <!-- Opción: Ver historial médico -->
+            <Button
+                android:id="@+id/btnVerHistorialMedico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Historial Médico"
+                android:textSize="18sp"
+                android:drawablePadding="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/selector_button"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

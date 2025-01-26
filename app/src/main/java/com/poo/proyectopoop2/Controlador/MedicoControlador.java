@@ -1,70 +1,88 @@
 package com.poo.proyectopoop2.Controlador;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 
 import com.poo.proyectopoop2.Modelo.ListaMedicoModelo;
+import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
 import com.poo.proyectopoop2.Modelo.MedicoModelo;
-import com.poo.proyectopoop2.R;
+import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
-public class MedicoControlador extends AppCompatActivity {
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class MedicoControlador implements Serializable {
     private ListaMedicoModelo listaMedicoModelo;
-    private ArrayAdapter<MedicoModelo> adapter;
+    private ExecutorService executorService;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_medico);
+    public ArrayList<MedicoModelo> obtenerMedicos() {
+        return listaMedicoModelo.getListaMedicos();
+    }
 
-        listaMedicoModelo = new ListaMedicoModelo();
+    public MedicoControlador(Context context){
+        this.listaMedicoModelo = new ListaMedicoModelo(context);
+        this.executorService = Executors.newSingleThreadExecutor();
 
-        ListView listViewMedicos = findViewById(R.id.listViewMedicos);
-        Button btnAgregarMedico = findViewById(R.id.btnAgregarMedico);
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaMedicoModelo.getListaMedicos());
-        listViewMedicos.setAdapter(adapter);
-
-        // Botón para agregar un médico
-        btnAgregarMedico.setOnClickListener(v -> {
-            Intent intent = new Intent(MedicoControlador.this, AnadirMedico.class);
-            startActivityForResult(intent, 1); // Código de solicitud para manejar resultado
-        });
-
-        // Eliminación de médico al hacer clic largo en un ítem de la lista
-        listViewMedicos.setOnItemLongClickListener((parent, view, position, id) -> {
-            listaMedicoModelo.eliminarMedico(position);
-            adapter.notifyDataSetChanged();
-            Toast.makeText(MedicoControlador.this, "Médico eliminado", Toast.LENGTH_SHORT).show();
-            return true;
+        executorService.submit(() -> {
+            try {
+                listaMedicoModelo.deserializarArrayListMedico();
+            } catch (IOException | ClassNotFoundException ignored) {
+            }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public int verificarDatosMedico( String nombre, String especialidad, String telefono, String email, String direccion){
 
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            // Recuperar datos enviados desde la actividad AnadirMedico
-            String nombre = data.getStringExtra("nombre");
-            String especialidad = data.getStringExtra("especialidad");
-            String telefono = data.getStringExtra("telefono");
-            String email = data.getStringExtra("email");
-            String direccion = data.getStringExtra("direccion");
-
-            MedicoModelo nuevoMedico = new MedicoModelo(nombre, especialidad, telefono, email, direccion);
-            listaMedicoModelo.agregarMedico(nuevoMedico);
-
-            // Actualizar la lista
-            adapter.notifyDataSetChanged();
+        if (nombre.isEmpty() &&  especialidad.isEmpty() && telefono.isEmpty() && email.isEmpty() && direccion.isEmpty()) {
+            return 0;
+        }
+        else if (nombre.isEmpty()) {
+            return 1;
+        }
+        else if (especialidad.isEmpty()) {
+            return 2;
+        }
+        else if(telefono.isEmpty()) {
+            return 3;
+        }
+        else if(email.isEmpty()) {
+            return 4;
+        }
+        else if(direccion.isEmpty()) {
+            return 5;
+        }
+        else {
+            return verificarMedico(nombre,especialidad,telefono,email,direccion);
         }
     }
+
+    public int verificarMedico(String nombre, String especialidad, String telefono, String email, String direccion){
+        for (MedicoModelo medicoVerificar : listaMedicoModelo.getListaMedicos()) {
+            if (medicoVerificar.getNombre().equalsIgnoreCase(nombre) &&
+                    medicoVerificar.getEspecialidades().equalsIgnoreCase(especialidad) &&
+                    medicoVerificar.getTelefono().equalsIgnoreCase(telefono)&&
+                    medicoVerificar.getEmail().equalsIgnoreCase(email) &&
+                    medicoVerificar.getDireccion().equalsIgnoreCase(direccion)) {
+                return 7;
+            }
+        }
+        crearMedico(nombre, especialidad,telefono, email,direccion);
+        return 6;
+    }
+
+    public void crearMedico(String nombre, String especialidad, String telefono, String email, String direccion){
+        MedicoModelo medico = new MedicoModelo(nombre,especialidad,telefono,email,direccion);
+
+        listaMedicoModelo.agregarMedico(medico);
+
+        try {
+            listaMedicoModelo.serializarArrayListMedico();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
-
-
 
