@@ -70,7 +70,7 @@ public class CrearPerfilActivity extends AppCompatActivity {
                         // Ruta del directorio donde se almacenará el archivo
                         ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
 
-                        // Agregar perfil al archivo utilizando el método mejorado
+                        // Agregar perfil al archivo
                         listaPerfilesModelo.guardarPerfilEnArchivo(nuevoPerfil);
 
                         Toast.makeText(this, this.getString(R.string.perfil_creado),
@@ -81,9 +81,16 @@ public class CrearPerfilActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     } catch (Exception e) {
-                        Toast.makeText(this, "Error al guardar el perfil: " + e.getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        if (e.getMessage().equals("Perfil ya existe")) {
+                            Toast.makeText(this, this.getString(R.string.perfil_existente),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Error al guardar el perfil: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
+
+
                     break;
                 case 4:
                     Toast.makeText(this, this.getString(R.string.perfil_existente),

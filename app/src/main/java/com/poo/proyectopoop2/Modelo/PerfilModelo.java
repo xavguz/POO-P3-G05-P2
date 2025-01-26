@@ -104,6 +104,12 @@ public class PerfilModelo implements Serializable {
         }
         return false;
     }
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre.toLowerCase(), relacion.toLowerCase());
+    }
+
+
 
 
 }
