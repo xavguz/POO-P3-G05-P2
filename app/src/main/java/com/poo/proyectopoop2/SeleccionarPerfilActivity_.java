@@ -20,7 +20,8 @@ import java.util.ArrayList;
 
 
 public class SeleccionarPerfilActivity_ extends AppCompatActivity {
-    private ListaPerfilesModelo listaPerfilesModelo;
+    private ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,6 @@ public class SeleccionarPerfilActivity_ extends AppCompatActivity {
             startActivity(intent);
         });
 
-        listaPerfilesModelo = new ListaPerfilesModelo(this);
 
         ListView listaPerfiles = findViewById(R.id.lista_perfil);
 

@@ -3,10 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="#03A9F4"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvAF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="Actividad Fisica"
+        android:textColor="@color/darkBlue"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/volver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/volver" />
 
     <ImageButton
         android:id="@+id/volver"
@@ -24,31 +37,29 @@
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <Button
-        android:id="@+id/btnGuardarMedicina"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnGuardar"
+        android:layout_width="381dp"
+        android:layout_height="45dp"
         android:backgroundTint="@color/darkBlue"
         android:text="Guardar"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintVertical_bias="0.966" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="300dp"
-        android:layout_height="520dp"
+        android:layout_width="301dp"
+        android:layout_height="471dp"
+        android:layout_marginBottom="184dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAnadirMedicina"
-        app:layout_constraintVertical_bias="0.227">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView3"
@@ -56,19 +67,18 @@
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Ingresar nombre del medicamento:"
+            android:text="Nombre de la Actividad"
             android:textColor="@color/darkBluePressed"
             android:textSize="18dp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="199dp" />
 
-        <EditText
-            android:id="@+id/ingresarNombreMedicamento"
+        <Spinner
+            android:id="@+id/spinnerActividad"
             android:layout_width="300dp"
-            android:layout_height="52dp"
-            android:layout_marginBottom="20dp"
-            android:hint="Nombre" />
+            android:layout_height="50dp"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/tv1"
@@ -76,7 +86,7 @@
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Ingresar la cantidad disponible:"
+            android:text="Fecha"
             android:textColor="@color/darkBluePressed"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -84,11 +94,11 @@
             tools:layout_editor_absoluteY="199dp" />
 
         <EditText
-            android:id="@+id/ingresarCantidad"
+            android:id="@+id/ingresarFecha"
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_marginBottom="20dp"
-            android:hint="Cantidad disponible" />
+            android:hint="DD/MM/AA" />
 
         <TextView
             android:id="@+id/tv3"
@@ -96,19 +106,18 @@
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Ingresar Presentacion:"
+            android:text="Horario"
             android:textColor="@color/darkBluePressed"
             android:textSize="18dp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="199dp" />
 
-        <EditText
-            android:id="@+id/ingresarPresentacion"
+        <Spinner
+            android:id="@+id/spinnerHorario"
             android:layout_width="300dp"
-            android:layout_height="52dp"
-            android:layout_marginBottom="20dp"
-            android:hint="Presentacion" />
+            android:layout_height="50dp"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/tv4"
@@ -116,7 +125,7 @@
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Ingresar hora de la toma:"
+            android:text="Duracion"
             android:textColor="@color/darkBluePressed"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -124,46 +133,13 @@
             tools:layout_editor_absoluteY="199dp" />
 
         <EditText
-            android:id="@+id/ingresarHoraToma"
+            android:id="@+id/ingresarConsulta"
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_marginBottom="20dp"
-            android:hint="(HH:MM)" />
+            android:hint="Minutos" />
 
-        <TextView
-            android:id="@+id/tv5"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginBottom="5dp"
-            android:text="Ingresar la dosis:"
-            android:textColor="@color/darkBluePressed"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="119dp"
-            tools:layout_editor_absoluteY="199dp" />
 
-        <EditText
-            android:id="@+id/ingresarDosis"
-            android:layout_width="300dp"
-            android:layout_height="52dp"
-            android:hint="Dosis" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvAnadirMedicina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/anadir_medicina"
-        android:textColor="@color/darkBlue"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

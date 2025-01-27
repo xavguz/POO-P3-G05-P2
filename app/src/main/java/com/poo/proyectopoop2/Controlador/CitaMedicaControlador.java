@@ -24,12 +24,12 @@ public class CitaMedicaControlador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_citas);
+        setContentView(R.layout.activity_administrar_citas_medicas);
 
         listaCitaModelo = new ListaCitaMedicaModelo();
 
-        ListView listViewCitas = findViewById(R.id.listViewCitas);
-        Button btnAgregarCita = findViewById(R.id.btnAgregarCita);
+        ListView listViewCitas = findViewById(R.id.rv);
+        Button btnAgregarCita = findViewById(R.id.btnanadir);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaCitaModelo.getListaCitas());
         listViewCitas.setAdapter(adapter);
@@ -56,13 +56,11 @@ public class CitaMedicaControlador extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             // Recuperar datos de la actividad AnadirCita
             String titulo = data.getStringExtra("titulo");
-            String dia = data.getStringExtra("dia");
-            String mes = data.getStringExtra("mes");
-            String ano = data.getStringExtra("ano");
+            String fecha = data.getStringExtra("Fecha");
             String hora = data.getStringExtra("hora");
             MedicoModelo doctor = (MedicoModelo) data.getSerializableExtra("doctor");
 
-            CitaMedicaModelo nuevaCita = new CitaMedicaModelo(titulo, new FechaModelo(dia, mes, ano, hora), doctor);
+            CitaMedicaModelo nuevaCita = new CitaMedicaModelo(titulo, new FechaModelo(fecha, hora), doctor);
             listaCitaModelo.agregarCita(nuevaCita);
 
             // Actualizar la lista

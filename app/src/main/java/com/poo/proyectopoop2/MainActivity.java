@@ -9,6 +9,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.poo.proyectopoop2.Modelo.ListaPerfilesModelo;
+import com.poo.proyectopoop2.Modelo.PerfilModelo;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

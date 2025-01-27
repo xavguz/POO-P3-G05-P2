@@ -30,6 +30,8 @@ public class CrearPerfilActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_crear_perfil);
 
+        ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
+
         nombreUsuario = findViewById(R.id.ingresarUsuario);
         relacionUsuario = findViewById(R.id.ingresarRelacion);
         emailUsuario = findViewById(R.id.ingresarEmail);
@@ -67,8 +69,6 @@ public class CrearPerfilActivity extends AppCompatActivity {
                         // Crear el nuevo perfil
                         PerfilModelo nuevoPerfil = new PerfilModelo(nombre, relacion, email);
 
-                        // Ruta del directorio donde se almacenará el archivo
-                        ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
 
                         // Agregar perfil al archivo
                         listaPerfilesModelo.guardarPerfilEnArchivo(nuevoPerfil);

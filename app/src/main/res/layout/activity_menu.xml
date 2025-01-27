@@ -47,8 +47,8 @@
                 android:text="Administrar Medicamentos"
                 android:textSize="18sp"
                 android:drawablePadding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_button"/>
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/darkBlue"/>
 
             <!-- Opción: Administrar Médicos -->
             <Button
@@ -58,8 +58,8 @@
                 android:text="Administrar Médicos"
                 android:textSize="18sp"
                 android:drawablePadding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_button"/>
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/darkBlue"/>
 
             <!-- Opción: Administrar Citas Médicas -->
             <Button
@@ -69,8 +69,8 @@
                 android:text="Administrar Citas Médicas"
                 android:textSize="18sp"
                 android:drawablePadding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_button"/>
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/darkBlue"/>
 
             <!-- Opción: Administrar Actividad Física -->
             <Button
@@ -80,8 +80,8 @@
                 android:text="Administrar Actividad Física"
                 android:textSize="18sp"
                 android:drawablePadding="10dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_button"/>
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/darkBlue"/>
 
             <!-- Opción: Ver historial médico -->
             <Button
@@ -92,7 +92,7 @@
                 android:textSize="18sp"
                 android:drawablePadding="10dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_button"/>
+                android:backgroundTint="@color/darkBlue"/>
 
         </LinearLayout>
     </ScrollView>

@@ -31,32 +31,27 @@ public class MenuActivity extends AppCompatActivity {
         Button btnCitas = findViewById(R.id.btnAdministrarCitas);
         Button btnActividadFisica = findViewById(R.id.btnAdministrarActividadFisica);
 
-        btnMedicos.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, AnadirMedico.class);
-            intent.putExtra("perfilSeleccionado", perfilSeleccionado);
-            startActivity(intent);
-        });
 
         btnMedicos.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, Medico_Activity.class);
+            Intent intent = new Intent(MenuActivity.this, AdministrarMedicosActivity.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
         });
 
         btnCitas.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, CitaMedicaControlador.class);
+            Intent intent = new Intent(MenuActivity.this, AdministrarCitasMedicas.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
         });
 
         btnActividadFisica.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, AnadirCitaMedica.class);
+            Intent intent = new Intent(MenuActivity.this, AdministrarActividadFisicaActivity.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
         });
 
         btnMedicamentos.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, AnadirMedicinaActivity.class);
+            Intent intent = new Intent(MenuActivity.this, AdministrarMedicinaActivity.class);
             intent.putExtra("perfilSeleccionado", perfilSeleccionado);
             startActivity(intent);
         });

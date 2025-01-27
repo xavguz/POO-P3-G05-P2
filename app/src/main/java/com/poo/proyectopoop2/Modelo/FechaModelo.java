@@ -7,12 +7,19 @@ public class FechaModelo implements Serializable {
     private String mes;
     private String año;
     private String hora;
+    private String fecha;
 
     public FechaModelo(String dia, String mes, String año, String hora){
         this.dia = dia;
         this.mes = mes;
         this.año = año;
         this.hora = hora;
+    }
+
+    public FechaModelo(String fecha, String hora){
+        this.fecha = fecha;
+        this.hora = hora;
+
     }
 
     public String getDia() {

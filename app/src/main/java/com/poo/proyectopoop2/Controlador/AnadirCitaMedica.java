@@ -18,13 +18,11 @@ public class AnadirCitaMedica extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anadir_citamedica);
+        setContentView(R.layout.activity_anadir_cita);
 
-        EditText etTitulo = findViewById(R.id.etTitulo);
-        EditText etDia = findViewById(R.id.etDia);
-        EditText etMes = findViewById(R.id.etMes);
-        EditText etAno = findViewById(R.id.etAno);
-        EditText etHora = findViewById(R.id.etHora);
+        EditText etTitulo = findViewById(R.id.ingresarConsulta);
+        EditText fecha = findViewById(R.id.ingresarFecha);
+        EditText etHora = findViewById(R.id.ingresarHora);
         Spinner spinnerDoctor = findViewById(R.id.spinnerDoctor);
         Button btnGuardar = findViewById(R.id.btnGuardar);
 
@@ -35,17 +33,13 @@ public class AnadirCitaMedica extends AppCompatActivity {
 
         btnGuardar.setOnClickListener(v -> {
             String titulo = etTitulo.getText().toString();
-            String dia = etDia.getText().toString();
-            String mes = etMes.getText().toString();
-            String ano = etAno.getText().toString();
+            String fechaCita = fecha.getText().toString();
             String hora = etHora.getText().toString();
             MedicoModelo doctor = (MedicoModelo) spinnerDoctor.getSelectedItem();
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("titulo", titulo);
-            resultIntent.putExtra("dia", dia);
-            resultIntent.putExtra("mes", mes);
-            resultIntent.putExtra("ano", ano);
+            resultIntent.putExtra("Fecha", fechaCita);
             resultIntent.putExtra("hora", hora);
             resultIntent.putExtra("doctor", doctor);
 

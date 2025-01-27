@@ -64,7 +64,7 @@ public class ListaMedicoModelo implements Serializable {
             Object obj = in.readObject();
 
             if (obj instanceof ArrayList<?>) {
-                listaMedicinas = (ArrayList<MedicinaModelo>) obj;
+                listaMedicos = (ArrayList<MedicoModelo>) obj;
             } else {
                 throw new ClassCastException("El archivo deserializado no es el correcto.");
             }

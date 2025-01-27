@@ -5,18 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.poo.proyectopoop2.Medico_Activity;
+import com.poo.proyectopoop2.AdministrarMedicosActivity;
 import com.poo.proyectopoop2.Modelo.ListaMedicoModelo;
 import com.poo.proyectopoop2.Modelo.MedicoModelo;
 import com.poo.proyectopoop2.R;
 
 public class AnadirMedico extends AppCompatActivity {
     private EditText nombreMedico;
-    private EditText especialidadMedico;
+    private Spinner especialidadMedico;
     private EditText telefonoMedico;
     private EditText emailMedico;
     private EditText dirreccionMedico;
@@ -29,17 +31,17 @@ public class AnadirMedico extends AppCompatActivity {
         setContentView(R.layout.activity_anadir_medico);
 
 
-        nombreMedico = findViewById(R.id.ingresarNombreMedico);
-        especialidadMedico = findViewById(R.id.ingresarEspecialidadMedico);
-        telefonoMedico = findViewById(R.id.ingresarTelefonoMedico);
-        emailMedico= findViewById(R.id.ingresarEmailMedico);
-        dirreccionMedico= findViewById(R.id.ingresarDireccionMedico);
+        nombreMedico = findViewById(R.id.ingresarNombreDoctor);
+        especialidadMedico = findViewById(R.id.spinnerDoctor);
+        telefonoMedico = findViewById(R.id.ingresarNumero);
+        emailMedico= findViewById(R.id.ingresarEmail);
+        dirreccionMedico= findViewById(R.id.ingresarDireccion);
         medicoControlador = new MedicoControlador(this);
 
-        Button btnGuardarMedico = findViewById(R.id.btnGuardarMedico);
+        Button btnGuardarMedico = findViewById(R.id.btnGuardar);
         btnGuardarMedico.setOnClickListener(v -> {
             String nombreM = nombreMedico.getText().toString().trim();
-            String especialidad = especialidadMedico.getText().toString().trim();
+            String especialidad = especialidadMedico.getPrompt().toString().trim();
             String telefono = telefonoMedico.getText().toString().trim();
             String emailM = emailMedico.getText().toString().trim();
             String direccion = dirreccionMedico.getText().toString().trim();
@@ -86,7 +88,7 @@ public class AnadirMedico extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
 
                         // Regresar a la actividad principal
-                        Intent intent = new Intent(AnadirMedico.this, Medico_Activity.class);
+                        Intent intent = new Intent(AnadirMedico.this, AdministrarMedicosActivity.class);
                         startActivity(intent);
 
                     } catch (Exception e) {

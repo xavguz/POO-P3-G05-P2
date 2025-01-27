@@ -1,16 +1,10 @@
 package com.poo.proyectopoop2.Controlador;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.poo.proyectopoop2.Medico_Activity;
-import com.poo.proyectopoop2.Modelo.ListaMedicoModelo;
-import com.poo.proyectopoop2.Modelo.MedicoModelo;
 import com.poo.proyectopoop2.R;
 
 public class AnadirMedicamento extends AppCompatActivity {
