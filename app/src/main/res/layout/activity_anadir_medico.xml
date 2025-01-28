@@ -156,7 +156,7 @@
             tools:layout_editor_absoluteY="199dp" />
 
         <Spinner
-            android:id="@+id/spinnerDoctor"
+            android:id="@+id/spinnerEspecialidad"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:padding="8dp" />

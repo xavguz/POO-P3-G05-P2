@@ -103,12 +103,13 @@
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="199dp" />
 
-        <EditText
-            android:id="@+id/ingresarPresentacion"
+        <Spinner
+            android:id="@+id/spinnerPresentacion"
             android:layout_width="300dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="20dp"
-            android:hint="Presentacion" />
+            android:padding="8dp" />
+
 
         <TextView
             android:id="@+id/tv4"
