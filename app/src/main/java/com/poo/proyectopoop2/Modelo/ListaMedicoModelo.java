@@ -47,40 +47,52 @@ public class ListaMedicoModelo implements Serializable {
         return null;
     }
 
-    public void serializarArrayListMedico() throws IOException {
-        File archivo = new File(context.getFilesDir(), "listamedicos.ser");
+    /**
+     * Serializa la lista de médicos específica de un perfil.
+     */
+    public void serializarArrayListMedico(PerfilModelo perfil) throws IOException {
+        File archivo = new File(context.getFilesDir(), "medicos_" + perfil.getId() + ".ser");
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo))) {
-            out.writeObject(listaMedicos);
+            out.writeObject(perfil.getMedicos()); // Guardar solo los médicos del perfil
         }
     }
 
-
+    /**
+     * Deserializa la lista de médicos específica de un perfil.
+     */
     @SuppressWarnings("unchecked")
-    public void deserializarArrayListMedico() throws IOException, ClassNotFoundException {
-        File archivo = new File(context.getFilesDir(), "listamedicos.ser");
+    public void deserializarArrayListMedico(PerfilModelo perfil) throws IOException, ClassNotFoundException {
+        File archivo = new File(context.getFilesDir(), "medicos_" + perfil.getId() + ".ser");
+
         if (!archivo.exists()) {
-            listaMedicos = new ArrayList<>(); // Si no existe, inicializa una nueva lista
+            perfil.getMedicos().clear(); // Si no hay archivo, aseguramos una lista vacía
             return;
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
-            listaMedicos = (ArrayList<MedicoModelo>) in.readObject();
+            ArrayList<MedicoModelo> medicos = (ArrayList<MedicoModelo>) in.readObject();
+            perfil.getMedicos().clear();
+            perfil.getMedicos().addAll(medicos); // Cargar los médicos en el perfil correspondiente
         }
 
-        // Eliminar duplicados, si es necesario
-        Set<MedicoModelo> uniqueSet = new HashSet<>(listaMedicos);
-        listaMedicos = new ArrayList<>(uniqueSet);
+        // **Eliminar duplicados en la lista del perfil**
+        Set<MedicoModelo> uniqueSet = new HashSet<>(perfil.getMedicos());
+        perfil.getMedicos().clear();
+        perfil.getMedicos().addAll(uniqueSet);
     }
 
-    public void guardarMedicoEnArchivo(MedicoModelo medicoNuevo) throws Exception {
-        deserializarArrayListMedico(); // Cargar lista antes de modificarla
+    /**
+     * Guarda un médico en la lista de un perfil específico.
+     */
+    public void guardarMedicoEnArchivo(PerfilModelo perfil, MedicoModelo medicoNuevo) throws Exception {
+        deserializarArrayListMedico(perfil); // Cargar lista antes de modificarla
 
-        if (!listaMedicos.contains(medicoNuevo)) {
-            listaMedicos.add(medicoNuevo);
-            serializarArrayListMedico(); // Guardar lista actualizada
-            Log.d("GuardarPerfil", "Perfil guardado: " + medicoNuevo.getNombre());
+        if (!perfil.getMedicos().contains(medicoNuevo)) {
+            perfil.getMedicos().add(medicoNuevo);
+            serializarArrayListMedico(perfil); // Guardar lista actualizada
+            Log.d("GuardarMedico", "Médico guardado: " + medicoNuevo.getNombre());
         } else {
-            Log.d("GuardarPerfil", "Perfil duplicado, no se guardó: " + medicoNuevo.getNombre());
+            Log.d("GuardarMedico", "Médico duplicado, no se guardó: " + medicoNuevo.getNombre());
         }
     }
 }

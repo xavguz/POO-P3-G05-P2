@@ -4,6 +4,7 @@ package com.poo.proyectopoop2;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -20,13 +21,16 @@ import java.util.ArrayList;
 
 
 public class SeleccionarPerfilActivity_ extends AppCompatActivity {
-    private ListaPerfilesModelo listaPerfilesModelo = new ListaPerfilesModelo(this);
-
+    private ListaPerfilesModelo listaPerfilesModelo;
+    private ArrayList<PerfilModelo> perfiles;
+    private ArrayAdapter<PerfilModelo> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_perfil3);
+
+        listaPerfilesModelo = new ListaPerfilesModelo(this);
 
         ImageButton btnVolver = findViewById(R.id.volver);
         btnVolver.setOnClickListener(v -> {
@@ -34,40 +38,48 @@ public class SeleccionarPerfilActivity_ extends AppCompatActivity {
             startActivity(intent);
         });
 
-
         ListView listaPerfiles = findViewById(R.id.lista_perfil);
 
-        try {
-            ArrayList<PerfilModelo> perfiles = cargarPerfilesDesdeArchivo();
+        perfiles = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, perfiles);
+        listaPerfiles.setAdapter(adapter);
 
-            if (perfiles.isEmpty()) {
-                Toast.makeText(this, "No hay perfiles disponibles.", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_CANCELED);
-                finish();
-                return;
+        cargarPerfilesDesdeArchivo();
+
+        listaPerfiles.setOnItemClickListener((parent, view, position, id) -> {
+            PerfilModelo perfilSeleccionado = perfiles.get(position);
+
+            // Pasar el perfil completo en lugar de solo el nombre
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra("perfil", perfilSeleccionado);  // 'perfil' es el objeto de tipo PerfilModelo
+            startActivity(intent);
+        });
+    }
+
+    private void cargarPerfilesDesdeArchivo() {
+        try {
+            listaPerfilesModelo.deserializarArrayList();
+            ArrayList<PerfilModelo> perfilesCargados = listaPerfilesModelo.getPerfiles();
+
+            // Limpiar la lista para evitar duplicados
+            perfiles.clear();
+
+            // Agregar perfiles sin duplicados
+            for (PerfilModelo perfil : perfilesCargados) {
+                if (!perfiles.contains(perfil)) {
+                    perfiles.add(perfil);
+                }
             }
 
-            ArrayAdapter<PerfilModelo> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, perfiles);
-            listaPerfiles.setAdapter(adapter);
+            // Notificar cambios en el adapter
+            adapter.notifyDataSetChanged();
 
-            listaPerfiles.setOnItemClickListener((parent, view, position, id) -> {
-                PerfilModelo perfilSeleccionado = perfiles.get(position);
-
-                // Enviar al menú con el perfil seleccionado
-                Intent intent = new Intent(SeleccionarPerfilActivity_.this, MenuActivity.class);
-                intent.putExtra("perfilSeleccionado", perfilSeleccionado.getNombre());
-                startActivity(intent);
-            });
-
-        } catch (Exception e) {
-            System.out.println("Error al cargar perfiles: " + e.getMessage());
-            setResult(RESULT_CANCELED);
-            finish();
+        } catch (IOException | ClassNotFoundException e) {
+            Log.e("SeleccionarPerfil", "Error al cargar perfiles: " + e.getMessage(), e);
+            Toast.makeText(this, "Error al cargar perfiles.", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private ArrayList<PerfilModelo> cargarPerfilesDesdeArchivo() throws IOException, ClassNotFoundException {
-        listaPerfilesModelo.deserializarArrayList();
-        return listaPerfilesModelo.getPerfiles();
-    }
 }
+
+
+

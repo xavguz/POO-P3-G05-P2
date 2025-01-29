@@ -2,6 +2,7 @@ package com.poo.proyectopoop2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,10 +18,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.poo.proyectopoop2.Controlador.ActividadFisicaControlador;
 import com.poo.proyectopoop2.Controlador.CitaMedicaControlador;
 import com.poo.proyectopoop2.Modelo.ActividadFisicaModelo;
+import com.poo.proyectopoop2.Modelo.CitaMedicaModelo;
 import com.poo.proyectopoop2.Modelo.FechaModelo;
+import com.poo.proyectopoop2.Modelo.ListaActividadFisicaModelo;
 import com.poo.proyectopoop2.Modelo.MedicoModelo;
+import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
 import java.util.ArrayList;
 
@@ -36,30 +41,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class AnadirActividadFisicaActivity extends AppCompatActivity {
-
     private Spinner sp1;  // Spinner para actividades físicas
-    private EditText fecha;  // Campo de texto para ingresar la fecha
+    private EditText fecha;
     private Spinner sp2;  // Spinner para horarios
-    private EditText duracion;  // Campo de texto para ingresar la duración (ya no se usará)
+    private EditText duracion;
+    private ActividadFisicaControlador actividadFisicaControlador;
+    private ListaActividadFisicaModelo listaActividadFisicaModelo;
+    private PerfilModelo perfilActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_actividad_fisica);
 
-        // Configurar botón de volver
-        ImageButton btnVolver = findViewById(R.id.volver);
-        btnVolver.setOnClickListener(v -> {
-            Intent intent = new Intent(AnadirActividadFisicaActivity.this, AdministrarActividadFisicaActivity.class);
-            startActivity(intent);
-        });
+        perfilActual = (PerfilModelo) getIntent().getSerializableExtra("perfil");
 
-        // Inicializar vistas
+        if (perfilActual == null) {
+            mostrarToast("Error: Perfil no recibido correctamente.");
+            Log.e("AnadirActividadFisica", "Perfil no recibido.");
+            finish();
+            return;
+        }
+
         sp1 = findViewById(R.id.spinnerActividad);
         fecha = findViewById(R.id.ingresarFecha);
-        duracion = findViewById(R.id.ingresarConsulta); // Este campo ya no se usará para duraciones
+        sp2 = findViewById(R.id.spinnerHorario);
+        duracion = findViewById(R.id.ingresarConsulta);
 
-        // Configurar spinner de actividades físicas
+        actividadFisicaControlador = new ActividadFisicaControlador(this, perfilActual);
+        listaActividadFisicaModelo = new ListaActividadFisicaModelo(this);
+
+        configurarSpinnerActividades();
+        configurarSpinnerHorarios();
+
+        // Botón para guardar actividad
+        Button btnGuardarActividad = findViewById(R.id.btnGuardar);
+        btnGuardarActividad.setOnClickListener(v -> agregarActividad());
+    }
+
+    private void configurarSpinnerActividades() {
         ArrayList<String> actividades = new ArrayList<>();
         actividades.add("Caminar");
         actividades.add("Trotar");
@@ -69,53 +89,58 @@ public class AnadirActividadFisicaActivity extends AppCompatActivity {
         actividades.add("Entrenamiento de fuerza");
         actividades.add("Nadar");
 
-        ArrayAdapter<String> adapter1 =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, actividades);
-        adapter1.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        sp1.setAdapter(adapter1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, actividades);
+        sp1.setAdapter(adapter);
+    }
 
-        // Configurar spinner de horarios (antes era de duraciones)
+    private void configurarSpinnerHorarios() {
         ArrayList<String> horarios = new ArrayList<>();
         horarios.add("Mañana");
         horarios.add("Tarde");
         horarios.add("Noche");
 
-        ArrayAdapter<String> adapter2 =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, horarios);
-        adapter2.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        sp2.setAdapter(adapter2);
-
-        // Configurar acción al seleccionar una actividad
-        sp1.setOnItemSelectedListener((parent, view, position, id) -> {
-            String item1 = parent.getItemAtPosition(position).toString();
-            Toast.makeText(AnadirActividadFisicaActivity.this, "Actividad seleccionada: " + item1, Toast.LENGTH_SHORT).show();
-        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, horarios);
+        sp2.setAdapter(adapter);
     }
 
-    // Método para manejar el guardado de la actividad física
-    public void guardarActividadFisica(View view) {
-        String actividadSeleccionada = sp1.getSelectedItem().toString();
-        String fechaSeleccionada = fecha.getText().toString();
-        String horarioSeleccionado = sp2.getSelectedItem().toString();  // Ahora seleccionamos el horario
+    private void agregarActividad() {
+        String actividadSeleccionada = (sp1.getSelectedItem() != null) ? sp1.getSelectedItem().toString().trim() : "";
+        String fechaSeleccionada = fecha.getText().toString().trim();
+        String horarioSeleccionado = (sp2.getSelectedItem() != null) ? sp2.getSelectedItem().toString().trim() : "";
+        String duracionSeleccionada = duracion.getText().toString().trim();
 
-        // Validar que todos los campos estén completos
-        if (fechaSeleccionada.isEmpty() || horarioSeleccionado.isEmpty()) {
-            Toast.makeText(this, "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show();
+        if (actividadSeleccionada.isEmpty() || fechaSeleccionada.isEmpty() || horarioSeleccionado.isEmpty() || duracionSeleccionada.isEmpty()) {
+            mostrarToast("Todos los campos son obligatorios.");
             return;
         }
 
-        // Crear el objeto de actividad física (si tu modelo necesita el horario, actualízalo aquí)
-        FechaModelo fechaModelo = new FechaModelo(fechaSeleccionada);  // Se asume que FechaModelo está correctamente implementado
-        ActividadFisicaModelo actividadFisica = new ActividadFisicaModelo(fechaModelo, actividadSeleccionada, horarioSeleccionado, fechaSeleccionada);
+        FechaModelo fechaModelo = new FechaModelo(fechaSeleccionada);
 
-        // Guardar la actividad física (esto puede incluir el proceso de serialización si es necesario)
-        // Aquí puedes agregar la lógica para almacenar esta actividad física en un archivo o base de datos
+        int validacion = actividadFisicaControlador.verificarDatosActividad(actividadSeleccionada, duracionSeleccionada, horarioSeleccionado, fechaModelo);
 
-        // Confirmación de guardado
-        Toast.makeText(this, "Actividad física guardada con éxito.", Toast.LENGTH_SHORT).show();
+        if (validacion == 5) { // Actividad agregada con éxito
+            try {
+                ActividadFisicaModelo nuevaActividad = new ActividadFisicaModelo(fechaModelo, actividadSeleccionada, duracionSeleccionada, horarioSeleccionado);
+                perfilActual.getActividadesFisicas().add(nuevaActividad);
+                listaActividadFisicaModelo.guardarActividadFisicaEnArchivo(perfilActual, nuevaActividad);
 
-        // Regresar a la actividad anterior
-        Intent intent = new Intent(AnadirActividadFisicaActivity.this, AdministrarActividadFisicaActivity.class);
-        startActivity(intent);
+                mostrarToast("Actividad guardada correctamente.");
+
+                // Devolver el perfil actualizado
+                Intent intent = new Intent();
+                intent.putExtra("perfil", perfilActual);
+                setResult(RESULT_OK, intent);
+                finish();
+            } catch (Exception e) {
+                Log.e("ErrorGuardarActividad", "Error al guardar actividad: " + e.getMessage());
+                mostrarToast("Error al guardar actividad.");
+            }
+        } else if (validacion == 6) {
+            mostrarToast("Esta actividad ya está registrada.");
+        }
+    }
+
+    private void mostrarToast(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

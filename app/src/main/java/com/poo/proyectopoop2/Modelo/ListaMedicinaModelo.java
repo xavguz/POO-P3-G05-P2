@@ -11,6 +11,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.io.*;
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.util.Log;
+
+import java.io.*;
+import java.util.ArrayList;
+
 public class ListaMedicinaModelo {
     private ArrayList<MedicinaModelo> listaMedicinas;
     private final Context context;
@@ -24,7 +36,7 @@ public class ListaMedicinaModelo {
         return listaMedicinas;
     }
 
-    public void agregarMedicina( MedicinaModelo medicina) {
+    public void agregarMedicina(MedicinaModelo medicina) {
         if (!listaMedicinas.contains(medicina)) {
             listaMedicinas.add(medicina);
         }
@@ -43,51 +55,52 @@ public class ListaMedicinaModelo {
         return null;
     }
 
-    public void serializarArrayListMedicina() throws IOException {
-        File archivo = new File(context.getFilesDir(), "listaMedicinas.ser");
+    private File obtenerArchivoMedicina(PerfilModelo perfil) {
+        String idPerfil = String.valueOf(perfil.getId());
+        return new File(context.getFilesDir(), "medicinas_" + idPerfil + ".ser");
+    }
+
+    public void serializarArrayListMedicina(PerfilModelo perfil) throws IOException {
+        File archivo = obtenerArchivoMedicina(perfil);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo))) {
-            out.writeObject(listaMedicinas);
+            out.writeObject(perfil.getMedicinas());
         }
     }
 
-    public void deserializarArrayListMedicina() throws IOException, ClassNotFoundException {
-        File archivo = new File(context.getFilesDir(), "listaMedicinas.ser");
+    public void deserializarArrayListMedicina(PerfilModelo perfil) throws IOException, ClassNotFoundException {
+        File archivo = obtenerArchivoMedicina(perfil);
         if (!archivo.exists()) {
-            listaMedicinas = new ArrayList<>();
+            perfil.getMedicinas().clear();
             return;
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
-            Object obj = in.readObject();
-
-            if (obj instanceof ArrayList<?>) {
-                listaMedicinas = (ArrayList<MedicinaModelo>) obj;
-            } else {
-                throw new ClassCastException("El archivo deserializado no es el correcto.");
-            }
+            ArrayList<MedicinaModelo> medicinas = (ArrayList<MedicinaModelo>) in.readObject();
+            perfil.getMedicinas().clear();
+            perfil.getMedicinas().addAll(medicinas);
+            this.listaMedicinas = new ArrayList<>(perfil.getMedicinas());
         }
     }
 
-    public ArrayList<MedicinaModelo> cargarMedicinasDesdeArchivo() {
+    public ArrayList<MedicinaModelo> cargarMedicinasDesdeArchivo(PerfilModelo perfil) {
         try {
-            deserializarArrayListMedicina();
+            deserializarArrayListMedicina(perfil);
+            listaMedicinas = new ArrayList<>(perfil.getMedicinas());
         } catch (IOException | ClassNotFoundException e) {
             Log.e("ListaMedicinaModelo", "Error al cargar medicinas: " + e.getMessage(), e);
-            listaMedicinas = new ArrayList<>();  // En caso de error, devolver una lista vacía
+            listaMedicinas = new ArrayList<>();
         }
         return listaMedicinas;
     }
 
-    public void guardarMedicinasEnArchivo(MedicinaModelo medinaNueva) throws Exception {
+    public void guardarMedicinasEnArchivo(PerfilModelo perfil, MedicinaModelo medicinaNueva) {
         try {
-            if (!listaMedicinas.contains(medinaNueva)) {
-                listaMedicinas.add(medinaNueva);
-                serializarArrayListMedicina();
+            if (!perfil.getMedicinas().contains(medicinaNueva)) {
+                perfil.agregarMedicina(medicinaNueva);
+                serializarArrayListMedicina(perfil);
             }
         } catch (IOException e) {
-            Log.e("ListaMedicinaModelo", "Error al guardar la medicina: " + e.getMessage(), e);
-            throw new Exception("No se pudo guardar la medicina.");
+            Log.e("ListaMedicinaModelo", "Error al guardar la medicina para el perfil: " + e.getMessage(), e);
         }
     }
-
 }

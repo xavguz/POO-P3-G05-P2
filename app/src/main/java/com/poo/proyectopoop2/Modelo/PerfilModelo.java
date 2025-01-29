@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+import androidx.annotation.NonNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Objects;
 public class PerfilModelo implements Serializable {
+    private static final long serialVersionUID = 758425513884995478L; // Mantener el mismo UID
 
-    private int id; //identificador unico
+    private int id;
     private String nombre;
     private String relacion;
     private String email;
@@ -19,7 +24,7 @@ public class PerfilModelo implements Serializable {
     private ArrayList<CitaMedicaModelo> citaMedicas;
     private ArrayList<ActividadFisicaModelo> actividadesFisicas;
     public static int ultimoId = 0;
-    
+
     public PerfilModelo(String nombre, String relacion, String email){
         id= ultimoId +1;
         this.nombre = nombre;
@@ -32,7 +37,8 @@ public class PerfilModelo implements Serializable {
         this.actividadesFisicas = new ArrayList<>();
         ultimoId= id;
     }
-    public PerfilModelo(){
+
+    public PerfilModelo() {
         this.medicinas = new ArrayList<>();
         this.tomaMedicinas = new ArrayList<>();
         this.medicos = new ArrayList<>();
@@ -40,15 +46,20 @@ public class PerfilModelo implements Serializable {
         this.actividadesFisicas = new ArrayList<>();
     }
 
-    public PerfilModelo(String nombreUsuario, String relacion){
-        this(nombreUsuario, relacion,null);
+
+    public PerfilModelo(String nombreUsuario, String relacion) {
+        this(nombreUsuario, relacion, null);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombreUsuario){
+    public void setNombre(String nombreUsuario) {
         this.nombre = nombreUsuario;
     }
 
@@ -56,7 +67,7 @@ public class PerfilModelo implements Serializable {
         return relacion;
     }
 
-    public void setRelacion(String relacion){
+    public void setRelacion(String relacion) {
         this.relacion = relacion;
     }
 
@@ -64,7 +75,7 @@ public class PerfilModelo implements Serializable {
         return email;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -88,27 +99,50 @@ public class PerfilModelo implements Serializable {
         return tomaMedicinas;
     }
 
-    
+    public void agregarMedicina(MedicinaModelo medicina) {
+        if (!medicinas.contains(medicina)) {
+            this.medicinas.add(medicina);
+        }
+    }
+
+    public void agregarMedico(MedicoModelo medico) {
+        if (!medicos.contains(medico)) {
+            this.medicos.add(medico);
+        }
+    }
+
+    public void agregarCitaMedica(CitaMedicaModelo cita) {
+        if (!citaMedicas.contains(cita)) {
+            this.citaMedicas.add(cita);
+        }
+    }
+
+    public void agregarActividadFisica(ActividadFisicaModelo actividad) {
+        if (!actividadesFisicas.contains(actividad)) {
+            this.actividadesFisicas.add(actividad);
+        }
+    }
+    public void setCitaMedicas(ArrayList<CitaMedicaModelo> citas) {
+        this.citaMedicas = citas;
+    }
+
     @NonNull
     @Override
-    public String toString(){
+    public String toString() {
         return nombre + " (" + relacion + ")";
     }
 
     @Override
-    public boolean equals(Object p) {
-        if (this == p) return true;
-        if (p == null || getClass() != p.getClass()) return false;
-        PerfilModelo perfil = (PerfilModelo) p;
-        return id == perfil.id; // Compara ID en lugar de nombre y relación
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PerfilModelo that = (PerfilModelo) o;
+        return id == that.id || (nombre.equalsIgnoreCase(that.nombre) && relacion.equalsIgnoreCase(that.relacion));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, nombre.toLowerCase(), relacion.toLowerCase());
     }
-
-
-
-
 }
+

@@ -34,4 +34,13 @@
     <string name="dosis_no_valida">La dosis no es válida. Por favor, ingresa una dosis correcta.</string>
     <string name="cantidad_no_valida">La cantidad ingresada no es válida. Por favor, verifica e intenta nuevamente.</string>
     <string name="error_formato_numerico">El formato numérico es incorrecto. Por favor, ingrese un valor válido.</string>
+    <string name="actividad_existente">La actividad ya está registrada.</string>
+    <string name="actividad_guardada_exito">Actividad guardada con éxito.</string>
+    <string name="actividad_faltante">La actividad es requerida.</string>
+    <string name="duracion_faltante">La duración es requerida.</string>
+    <string name="horario_faltante">El horario es requerido.</string>
+    <string name="fecha_faltante">La fecha es requerida.</string>
+    <string name="actividad_Fisica_agregada">Actividad física agregada con éxito.</string>
+    <string name="actividad_Fisica_existente">La actividad física ya está registrada.</string>
+
 </resources>

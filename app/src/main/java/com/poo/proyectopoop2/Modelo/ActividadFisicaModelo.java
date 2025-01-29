@@ -9,50 +9,31 @@ public class ActividadFisicaModelo implements Serializable {
     private String duracion;
     private String horario;
 
-    public ActividadFisicaModelo(FechaModelo fecha, String actividad,
-                           String duracion, String horario){
-        this.fecha = fecha;
-        this.actividad = actividad;
-        this.duracion = duracion;
-        this.horario = horario;
+    public ActividadFisicaModelo(FechaModelo fecha, String actividad, String duracion, String horario) {
+        this.fecha = (fecha != null) ? fecha : new FechaModelo("00/00/0000");
+        this.actividad = (actividad != null) ? actividad : "No definida";
+        this.duracion = (duracion != null) ? duracion : "0";
+        this.horario = (horario != null) ? horario : "No definido";
     }
-
-    public ActividadFisicaModelo(){}
 
     public FechaModelo getFecha() {
         return fecha;
-    }
-
-    public void setFecha(FechaModelo fecha) {
-        this.fecha = fecha;
     }
 
     public String getActividad() {
         return actividad;
     }
 
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
-    }
-
     public String getDuracion() {
         return duracion;
-    }
-
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
     }
 
     public String getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
     @Override
-    public String toString(){
-        return fecha + " / " + actividad + " / " + duracion;
+    public String toString() {
+        return fecha.getFecha() + " - " + horario + " / " + actividad + " / " + duracion;
     }
 }

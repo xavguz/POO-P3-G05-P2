@@ -40,7 +40,8 @@ public class CitaMedicaModelo implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return titulo + " / " + doctor.getNombre() + " ("+ doctor.getEspecialidades() + ")" + " / " + fecha;
+    public String toString() {
+        return titulo + " / " + (doctor != null ? doctor.getNombre() : "Sin Doctor") +
+                " / " + (fecha != null ? fecha.toString() : "Sin Fecha");
     }
 }

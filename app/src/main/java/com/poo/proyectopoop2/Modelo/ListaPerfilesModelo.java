@@ -22,7 +22,6 @@ public class ListaPerfilesModelo implements Serializable {
     public ListaPerfilesModelo(Context context) {
         this.context = context;
         this.perfiles = new ArrayList<>();
-
     }
 
     public ArrayList<PerfilModelo> getPerfiles() {
@@ -33,48 +32,55 @@ public class ListaPerfilesModelo implements Serializable {
         // Verificar si el perfil ya existe antes de agregarlo
         if (!perfiles.contains(perfil)) {
             perfiles.add(perfil);
+        } else {
+            Log.d("ListaPerfilesModelo", "Perfil ya existe, no se agrega: " + perfil.getNombre());
         }
     }
-
 
     public void serializarArrayList() throws IOException {
         // Eliminar duplicados antes de guardar
         Set<PerfilModelo> uniqueSet = new HashSet<>(perfiles);
         perfiles = new ArrayList<>(uniqueSet);
 
-        File archivo = new File(context.getFilesDir(), "listaPerfiles_.ser");
+        // Verifica si el archivo existe
+        File archivo = new File(context.getFilesDir(), "listaPerfiles_1.ser");
+        if (!archivo.exists()) {
+            archivo.createNewFile();  // Si no existe, lo crea
+            Log.d("ListaPerfilesModelo", "Archivo de perfiles creado.");
+        }
+
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo))) {
             out.writeObject(perfiles);
-
+            Log.d("ListaPerfilesModelo", "Perfiles serializados correctamente.");
         }
     }
 
     @SuppressWarnings("unchecked")
     public void deserializarArrayList() throws IOException, ClassNotFoundException {
-        File archivo = new File(context.getFilesDir(), "listaPerfiles_.ser");
+        File archivo = new File(context.getFilesDir(), "listaPerfiles_1.ser");
         if (!archivo.exists()) {
             perfiles = new ArrayList<>(); // Si no existe, inicializa una nueva lista
+            Log.d("ListaPerfilesModelo", "No se encontró el archivo, se inicializa lista vacía.");
             return;
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
             perfiles = (ArrayList<PerfilModelo>) in.readObject();
+            Log.d("ListaPerfilesModelo", "Perfiles deserializados correctamente.");
         }
-
-        // Eliminar duplicados, si es necesario
-        Set<PerfilModelo> uniqueSet = new HashSet<>(perfiles);
-        perfiles = new ArrayList<>(uniqueSet);
     }
 
     public void guardarPerfilEnArchivo(PerfilModelo perfilNuevo) throws Exception {
         deserializarArrayList(); // Cargar lista antes de modificarla
 
+        // Verificar si el perfil ya existe antes de agregarlo
         if (!perfiles.contains(perfilNuevo)) {
             perfiles.add(perfilNuevo);
             serializarArrayList(); // Guardar lista actualizada
             Log.d("GuardarPerfil", "Perfil guardado: " + perfilNuevo.getNombre());
         } else {
             Log.d("GuardarPerfil", "Perfil duplicado, no se guardó: " + perfilNuevo.getNombre());
+            throw new Exception("Perfil ya existe"); // Lanza una excepción si el perfil ya existe
         }
     }
 }

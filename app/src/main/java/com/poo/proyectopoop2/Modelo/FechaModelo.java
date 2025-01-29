@@ -53,5 +53,14 @@ public class FechaModelo implements Serializable {
     public String toString(){
         return dia + "/"+ mes + "/" + año + " - " + hora;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
 }
 
