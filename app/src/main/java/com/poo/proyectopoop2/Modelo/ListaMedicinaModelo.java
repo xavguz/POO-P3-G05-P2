@@ -1,6 +1,7 @@
 package com.poo.proyectopoop2.Modelo;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,7 +50,7 @@ public class ListaMedicinaModelo {
         }
     }
 
-    public void deserializarArrayListMedico() throws IOException, ClassNotFoundException {
+    public void deserializarArrayListMedicina() throws IOException, ClassNotFoundException {
         File archivo = new File(context.getFilesDir(), "listaMedicinas.ser");
         if (!archivo.exists()) {
             listaMedicinas = new ArrayList<>();
@@ -67,10 +68,26 @@ public class ListaMedicinaModelo {
         }
     }
 
+    public ArrayList<MedicinaModelo> cargarMedicinasDesdeArchivo() {
+        try {
+            deserializarArrayListMedicina();
+        } catch (IOException | ClassNotFoundException e) {
+            Log.e("ListaMedicinaModelo", "Error al cargar medicinas: " + e.getMessage(), e);
+            listaMedicinas = new ArrayList<>();  // En caso de error, devolver una lista vacía
+        }
+        return listaMedicinas;
+    }
+
     public void guardarMedicinasEnArchivo(MedicinaModelo medinaNueva) throws Exception {
-        if (!listaMedicinas.contains(medinaNueva)) {
-            listaMedicinas.add(medinaNueva);
-            serializarArrayListMedicina();
+        try {
+            if (!listaMedicinas.contains(medinaNueva)) {
+                listaMedicinas.add(medinaNueva);
+                serializarArrayListMedicina();
+            }
+        } catch (IOException e) {
+            Log.e("ListaMedicinaModelo", "Error al guardar la medicina: " + e.getMessage(), e);
+            throw new Exception("No se pudo guardar la medicina.");
         }
     }
+
 }

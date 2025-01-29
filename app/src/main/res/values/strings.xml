@@ -24,5 +24,14 @@
     <string name="medico_agregado">Médico agregado</string>
     <string name="medico_existente">Este médico se encuentra registrado!</string>
     <string name="anadir_medicina">Añadir Medicina</string>
-
+    <string name="nombre_faltante_medicina"> Debes ingresar el nombre de la medicina.</string>
+    <string name="cantidad_faltante">Especifica la cantidad de la medicina.</string>
+    <string name="presentacion_faltante">Selecciona la presentación de la medicina.</string>
+    <string name="hora_faltante">Indica la hora de la toma de la medicina.</string>
+    <string name="dosis_faltante">Ingresa la dosis correcta de la medicina.</string>
+    <string name="medicina_agregado">Medicina guardada.</string>
+    <string name="medicina_existente">Medicina Existente</string>
+    <string name="dosis_no_valida">La dosis no es válida. Por favor, ingresa una dosis correcta.</string>
+    <string name="cantidad_no_valida">La cantidad ingresada no es válida. Por favor, verifica e intenta nuevamente.</string>
+    <string name="error_formato_numerico">El formato numérico es incorrecto. Por favor, ingrese un valor válido.</string>
 </resources>

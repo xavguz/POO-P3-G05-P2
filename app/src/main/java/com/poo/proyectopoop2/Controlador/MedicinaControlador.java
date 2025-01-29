@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.poo.proyectopoop2.Modelo.ListaMedicinaModelo;
 import com.poo.proyectopoop2.Modelo.MedicinaModelo;
+import com.poo.proyectopoop2.Modelo.PerfilModelo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class MedicinaControlador {
 
         executorService.submit(() -> {
             try {
-                listaMedicinaModelo.deserializarArrayListMedico();
+                listaMedicinaModelo.deserializarArrayListMedicina();
             } catch (IOException | ClassNotFoundException ignored) {
             }
         });
@@ -55,24 +56,35 @@ public class MedicinaControlador {
         }
     }
 
-    public int verificarMedicina(String nombre, String cantidad, String presentacion, String hora, String dosis){
-        float cantidadDisponible = Float.parseFloat(cantidad);
-        float dosisDisponible = Float.parseFloat(dosis);
+    public int verificarMedicina(String nombre, String cantidad, String presentacion, String hora, String dosis) {
+        float cantidadDisponible = 0;
+        float dosisDisponible = 0;
+
+        try {
+            cantidadDisponible = Float.parseFloat(cantidad);
+            dosisDisponible = Float.parseFloat(dosis);
+        } catch (NumberFormatException e) {
+            // Si no es un número, retornar un código de error (por ejemplo 8 para error en cantidad o dosis)
+            return 8;
+        }
+
         for (MedicinaModelo medicinaModelo : listaMedicinaModelo.getListaMedicinas()) {
             if (medicinaModelo.getNombreMedicamento().equalsIgnoreCase(nombre) &&
                     medicinaModelo.getUnidadesDisponibles() == cantidadDisponible &&
-                    medicinaModelo.getPresentacion().equalsIgnoreCase(presentacion)&&
+                    medicinaModelo.getPresentacion().equalsIgnoreCase(presentacion) &&
                     medicinaModelo.getHora().equalsIgnoreCase(hora) &&
                     medicinaModelo.getDosis() == dosisDisponible) {
-                return 7;
+                return 7; // Medicina ya existe
             }
         }
-        crearMedicina(nombre, cantidadDisponible,presentacion, hora,dosisDisponible);
-        return 6;
-    }
 
-    public void crearMedicina(String nombre, float cantidad, String presentacion, String hora, float dosis){
-        MedicinaModelo medicina = new MedicinaModelo(nombre,cantidad,presentacion,hora,dosis);
+        // Si la validación pasa, crea la medicina
+        crearMedicina(nombre, cantidadDisponible, presentacion, hora, dosisDisponible);
+        return 6; // Medicina creada correctamente
+    }
+    public void crearMedicina(String nombreMedicamento, float unidadesDisponibles,
+                              String presentacion, String hora, float dosis){
+        MedicinaModelo medicina = new MedicinaModelo(nombreMedicamento,unidadesDisponibles,presentacion,hora,dosis);
 
         listaMedicinaModelo.agregarMedicina(medicina);
 

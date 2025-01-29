@@ -97,16 +97,15 @@ public class PerfilModelo implements Serializable {
 
     @Override
     public boolean equals(Object p) {
-        if (p instanceof PerfilModelo) {
-            PerfilModelo perfil = (PerfilModelo) p;
-            return Objects.equals(nombre.toLowerCase(), perfil.nombre.toLowerCase()) &&
-                    Objects.equals(relacion.toLowerCase(), perfil.relacion.toLowerCase());
-        }
-        return false;
+        if (this == p) return true;
+        if (p == null || getClass() != p.getClass()) return false;
+        PerfilModelo perfil = (PerfilModelo) p;
+        return id == perfil.id; // Compara ID en lugar de nombre y relación
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(nombre.toLowerCase(), relacion.toLowerCase());
+        return Objects.hash(id);
     }
 
 

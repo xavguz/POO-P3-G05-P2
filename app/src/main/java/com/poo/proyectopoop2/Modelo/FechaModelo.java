@@ -22,6 +22,10 @@ public class FechaModelo implements Serializable {
 
     }
 
+    public  FechaModelo (String fecha){
+        this.fecha=fecha;
+    }
+
     public String getDia() {
         return dia;
     }

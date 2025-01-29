@@ -37,7 +37,7 @@
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <Button
-        android:id="@+id/btnGuardar"
+        android:id="@+id/btnGuardarMedico"
         android:layout_width="381dp"
         android:layout_height="45dp"
         android:backgroundTint="@color/darkBlue"
@@ -80,7 +80,7 @@
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_marginBottom="20dp"
-            android:hint="Ej: Consulta General" />
+            android:hint="Nombre" />
 
         <TextView
             android:id="@+id/tv1"
@@ -108,7 +108,7 @@
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Hora"
+            android:text="Dirección"
             android:textColor="@color/darkBluePressed"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -120,7 +120,7 @@
             android:layout_width="300dp"
             android:layout_height="52dp"
             android:layout_marginBottom="20dp"
-            android:hint="Direccion" />
+            android:hint="Dirección" />
 
         <TextView
             android:id="@+id/tv6"

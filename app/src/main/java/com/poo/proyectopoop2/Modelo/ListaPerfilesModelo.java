@@ -1,6 +1,7 @@
 package com.poo.proyectopoop2.Modelo;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class ListaPerfilesModelo implements Serializable {
     private ArrayList<PerfilModelo> perfiles;
     private final Context context;
+
     public ListaPerfilesModelo(Context context) {
         this.context = context;
         this.perfiles = new ArrayList<>();
@@ -65,11 +67,14 @@ public class ListaPerfilesModelo implements Serializable {
     }
 
     public void guardarPerfilEnArchivo(PerfilModelo perfilNuevo) throws Exception {
-        // Verificar si el perfil ya existe antes de agregarlo
+        deserializarArrayList(); // Cargar lista antes de modificarla
+
         if (!perfiles.contains(perfilNuevo)) {
             perfiles.add(perfilNuevo);
-            serializarArrayList(); // Guardar la lista de perfiles al archivo
-
+            serializarArrayList(); // Guardar lista actualizada
+            Log.d("GuardarPerfil", "Perfil guardado: " + perfilNuevo.getNombre());
+        } else {
+            Log.d("GuardarPerfil", "Perfil duplicado, no se guardó: " + perfilNuevo.getNombre());
         }
     }
 }

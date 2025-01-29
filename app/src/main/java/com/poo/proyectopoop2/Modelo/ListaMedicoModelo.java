@@ -1,6 +1,7 @@
 package com.poo.proyectopoop2.Modelo;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,28 +54,33 @@ public class ListaMedicoModelo implements Serializable {
         }
     }
 
+
+    @SuppressWarnings("unchecked")
     public void deserializarArrayListMedico() throws IOException, ClassNotFoundException {
         File archivo = new File(context.getFilesDir(), "listamedicos.ser");
         if (!archivo.exists()) {
-            listaMedicos = new ArrayList<>();
+            listaMedicos = new ArrayList<>(); // Si no existe, inicializa una nueva lista
             return;
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
-            Object obj = in.readObject();
-
-            if (obj instanceof ArrayList<?>) {
-                listaMedicos = (ArrayList<MedicoModelo>) obj;
-            } else {
-                throw new ClassCastException("El archivo deserializado no es el correcto.");
-            }
+            listaMedicos = (ArrayList<MedicoModelo>) in.readObject();
         }
+
+        // Eliminar duplicados, si es necesario
+        Set<MedicoModelo> uniqueSet = new HashSet<>(listaMedicos);
+        listaMedicos = new ArrayList<>(uniqueSet);
     }
 
     public void guardarMedicoEnArchivo(MedicoModelo medicoNuevo) throws Exception {
+        deserializarArrayListMedico(); // Cargar lista antes de modificarla
+
         if (!listaMedicos.contains(medicoNuevo)) {
             listaMedicos.add(medicoNuevo);
-            serializarArrayListMedico();
+            serializarArrayListMedico(); // Guardar lista actualizada
+            Log.d("GuardarPerfil", "Perfil guardado: " + medicoNuevo.getNombre());
+        } else {
+            Log.d("GuardarPerfil", "Perfil duplicado, no se guardó: " + medicoNuevo.getNombre());
         }
     }
 }

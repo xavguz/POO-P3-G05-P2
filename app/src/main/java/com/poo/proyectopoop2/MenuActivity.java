@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.poo.proyectopoop2.Controlador.AnadirCitaMedica;
-import com.poo.proyectopoop2.Controlador.AnadirMedico;
-import com.poo.proyectopoop2.Controlador.CitaMedicaControlador;
-
 public class MenuActivity extends AppCompatActivity {
 
     @Override
